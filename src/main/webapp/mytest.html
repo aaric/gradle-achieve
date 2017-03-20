@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tests</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+	// 项目基地址
+	var baseUrl = window.location.protocol + "//" + window.location.host + "/java-gradle-sm-framework";
+
+	// AJAX-GET
+	function ajaxGet(requestPath, jsonObject) {
+		$.ajax({
+			type : 'GET',
+			dataType : 'json',
+			data : jsonObject,
+			url : baseUrl + requestPath,
+			success : function(data) {
+				console.log(data);
+				$('#msg').html(JSON.stringify(data));
+			}
+		});
+	}
+
+	// AJAX-POST
+	function ajaxPost(requestPath, jsonObject) {
+		$.ajax({
+			type : 'POST',
+			dataType : 'json',
+			contentType : 'application/json',
+			data : JSON.stringify(jsonObject),
+			url : baseUrl + requestPath,
+			success : function(data) {
+				console.log(data);
+				$('#msg').html(JSON.stringify(data));
+			}
+		});
+	}
+
+	// 测试数据
+	var testObject = {
+			"user_pwd": "MTIzNDU2"
+	}
+
+	// 测试请求
+	$("#btnTest").click(function() {
+		// 获得测试数据
+		ajaxGet('/test/getObject', testObject);
+	});
+
+</script>
+</head>
+<body>
+	<button id="btnTest">测试</button><br />
+	<div id="msg"></div><br /><br />
+</body>
+</html>

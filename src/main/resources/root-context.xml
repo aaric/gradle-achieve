@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!--// 使Spring关注Annotation -->
+	<context:annotation-config />
+
+	<!--// 指定事务使用注解驱动 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!--// 让Spring通过自动扫描来查询和管理Bean -->
+	<context:component-scan base-package="com.github.aaric.**.dao" />
+	<context:component-scan base-package="com.github.aaric.**.service" />
+
+	<!--// 获得jdbc.properties数据源配置信息 -->
+	<bean id="dataSourceProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/db.properties</value>
+				<value>file:${catalina.home}/conf/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--// 配置jdbc数据源 -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		destroy-method="close">
+		<!--jdbc地址名称 -->
+		<property name="url" value="${connection.url}" />
+		<!--jdbc驱动 -->
+		<property name="driverClassName" value="${connection.driverClassName}" />
+		<!--用户名 -->
+		<property name="username" value="${connection.username}" />
+		<!--密码 -->
+		<property name="password" value="${connection.password}" />
+		<!--连接池是否注册JMX代理,默认true -->
+		<property name="jmxEnabled" value="${connection.jmxEnabled}" />
+		<!-- 空闲时是否进行验证,检查对象是否有效,默认为false -->
+		<property name="testWhileIdle" value="${connection.testWhileIdle}" />
+		<!-- 取得对象时是否进行验证,检查对象是否有效,默认为false -->
+		<property name="testOnBorrow" value="${connection.testOnBorrow}" />
+		<!-- 验证间隔,避免额外验证,在此时间内若通过验证,则再次请求不会验证,默认30000(30秒) -->
+		<property name="validationInterval" value="${connection.validationInterval}" />
+		<!-- 返回对象时是否进行验证,检查对象是否有效,默认为false -->
+		<property name="testOnReturn" value="${connection.testOnReturn}" />
+		<!-- 验证连接是否成功, SQL SELECT 指令至少要返回一行 -->
+		<property name="validationQuery" value="${connection.validationQuery}" />
+		<!-- 多久检查一次空闲链接,并且验证空闲链接,不能设置小于1,默认5000(5 秒) -->
+		<property name="timeBetweenEvictionRunsMillis" value="${connection.timeBetweenEvictionRunsMillis}" />
+		<!-- 可以从对象池中取出的对象最大个数,为0则表示没有限制,默认为100 -->
+		<property name="maxActive" value="${connection.maxActive}" />
+		<!-- 创建连接池时初始化连接数,默认10 -->
+		<property name="initialSize" value="${connection.initialSize}" />
+		<!-- 无链接可用时最大等待秒数,超过时间会丟出错误信息 默认30000(30 秒) -->
+		<property name="maxWait" value="${connection.maxWait}" />
+		<!-- 几秒后会自我中断 默认 60(60 秒) -->
+		<property name="removeAbandonedTimeout" value="${connection.removeAbandonedTimeout}" />
+		<!-- 空闲链接验证时间 默认 60(60 秒) -->
+		<property name="minEvictableIdleTimeMillis" value="${connection.minEvictableIdleTimeMillis}" />
+		<!-- 最小空间连接数 一般与初始化连接数相等 默认10个 -->
+		<property name="minIdle" value="${connection.minIdle}" />
+		<!-- 是否记录中断事件,默认为 false -->
+		<property name="logAbandoned" value="${connection.logAbandoned}" />
+		<!-- 是否自我中断,默认是 false -->
+		<property name="removeAbandoned" value="${connection.removeAbandoned}" />
+		<!-- jdbc拦截器 -->
+		<property name="jdbcInterceptors" value="${connection.jdbcInterceptors}" />
+	</bean>
+
+	<!--// 配置mybatis工厂Bean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	</bean>
+
+	<!--// 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--// 采用自动扫描方式创建mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.github.aaric.**.dao" />
+	</bean>
+
+	<!--// 配置redis服务 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+		<property name="testOnReturn" value="${redis.testOnReturn}" />
+		<!-- <property name="testWhileIdle" value="true"/> -->
+	</bean>
+
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"
+		scope="singleton">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1">
+			<list>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg name="host" value="${redis.host}" />
+					<constructor-arg name="port" value="${redis.port}" />
+					<constructor-arg name="timeout" value="${redis.timeout}" />
+					<constructor-arg name="weight" value="1" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>
