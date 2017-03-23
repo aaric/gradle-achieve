@@ -31,6 +31,7 @@
 			<list>
 				<value>file:${catalina.home}/conf/db.properties</value>
 				<value>file:${catalina.home}/conf/redis.properties</value>
+				<value>file:${catalina.home}/conf/server.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -122,6 +123,16 @@
 				</bean>
 			</list>
 		</constructor-arg>
+	</bean>
+	
+	<!--// 配置FtpUtils -->
+	<bean id="ftpUtils" class="com.github.aaric.utils.FtpUtils">
+		<property name="serverFtpPort" value="${server.ftp.port}" />
+		<property name="serverFtpHost" value="${server.ftp.host}" />
+		<property name="accountFtpUsername" value="${account.ftp.username}" />
+		<property name="accountFtpPassword" value="${account.ftp.password}" />
+		<property name="serverFtpConnectTimeout" value="${server.ftp.connect.timeout}" />
+		<property name="serverFtpDataTimeout" value="${server.ftp.data.timeout}" />
 	</bean>
 
 </beans>

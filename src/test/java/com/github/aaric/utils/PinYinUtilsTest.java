@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:applicationContext-Test.xml" })
-public class PinYinUtilsTests extends AbstractJUnit4SpringContextTests {
+public class PinYinUtilsTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testPrint() throws Exception {

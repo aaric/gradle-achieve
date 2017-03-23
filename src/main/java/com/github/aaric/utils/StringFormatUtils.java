@@ -1,12 +1,12 @@
 package com.github.aaric.utils;
 
 /**
- * 字符串工具栏
+ * 字符串格式化工具栏
  * 
  * @author aaric
  * @since 2017-03-20
  */
-public class StringUtils {
+public class StringFormatUtils {
 
 	/**
 	 * 转换为UTF8字符串

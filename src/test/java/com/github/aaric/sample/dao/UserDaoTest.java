@@ -1,4 +1,4 @@
-package com.github.aaric.sample.service;
+package com.github.aaric.sample.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,21 +8,21 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * UserService测试类
+ * UserDao测试类
  * 
  * @author Aaric
  * @since 2017-03-20
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:applicationContext-Test.xml" })
-public class UserServiceTests extends AbstractTransactionalJUnit4SpringContextTests {
+public class UserDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
-	private UserService userService;
+	private UserDao userDao;
 
 	@Test
 	public void testGetUserById() throws Exception {
-		System.err.println("-->" + userService.getUserById(1L));
+		System.err.println("-->" + userDao.getUserById(1L));
 	}
 
 }
