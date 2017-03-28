@@ -101,25 +101,24 @@
 	</bean>
 
 	<!--// 配置redis服务 -->
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxTotal" value="${redis.maxActive}" />
-		<property name="maxIdle" value="${redis.maxIdle}" />
-		<property name="maxWaitMillis" value="${redis.maxWait}" />
-		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
-		<property name="testOnReturn" value="${redis.testOnReturn}" />
-		<!-- <property name="testWhileIdle" value="true"/> -->
-	</bean>
-
 	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"
 		scope="singleton">
-		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="0">
+			<bean class="redis.clients.jedis.JedisPoolConfig">
+				<property name="maxTotal" value="${redis.maxActive}" />
+				<property name="maxIdle" value="${redis.maxIdle}" />
+				<property name="maxWaitMillis" value="${redis.maxWait}" />
+				<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+				<property name="testOnReturn" value="${redis.testOnReturn}" />
+				<property name="testWhileIdle" value="true"/>
+			</bean>
+		</constructor-arg>
 		<constructor-arg index="1">
 			<list>
-				<bean class="redis.clients.jedis.JedisShardInfo">
+				<bean class=" redis.clients.jedis.JedisShardInfo">
 					<constructor-arg name="host" value="${redis.host}" />
 					<constructor-arg name="port" value="${redis.port}" />
 					<constructor-arg name="timeout" value="${redis.timeout}" />
-					<constructor-arg name="weight" value="1" />
 				</bean>
 			</list>
 		</constructor-arg>
