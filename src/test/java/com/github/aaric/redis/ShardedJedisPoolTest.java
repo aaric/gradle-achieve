@@ -1,4 +1,4 @@
-package com.github.aaric.utils;
+package com.github.aaric.redis;
 
 import java.util.HashMap;
 import java.util.Map;

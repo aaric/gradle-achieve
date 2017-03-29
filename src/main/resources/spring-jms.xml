@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+			http://www.springframework.org/schema/jms
+			http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+			http://activemq.apache.org/schema/core
+			http://activemq.apache.org/schema/core/activemq-core-5.14.4.xsd">
+
+	<!-- ActiveMQ 连接工厂 -->
+    <amq:connectionFactory id="amqConnectionFactory"
+        brokerURL="${activeMQ.brokerURL}" userName="${activeMQ.userName}" password="${activeMQ.password}"  />
+
+    <!-- Spring Caching 连接工厂 -->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="amqConnectionFactory"></property>
+        <property name="sessionCacheSize" value="100" />
+    </bean>
+
+    <!--// Spring JmsTemplate 的消息生产者 -->
+    <!-- 定义JmsTemplate的Queue类型 -->
+    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="connectionFactory" />
+        <property name="pubSubDomain" value="false" />
+    </bean>
+
+    <!-- 定义JmsTemplate的Topic类型 -->
+    <!-- <bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="connectionFactory" />
+        <property name="pubSubDomain" value="true" />
+    </bean> -->
+
+    <!--// 消息消费者 -->
+    <!-- 定义Queue监听器 -->
+    <bean id="testQueueListener" class="com.github.aaric.listener.TestQueueListener"></bean>
+    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
+        <jms:listener destination="HelloWorld" ref="testQueueListener"/>
+    </jms:listener-container>
+
+    <!-- 定义Topic监听器 -->
+    <!-- <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
+        <jms:listener destination="test.topic" ref="testTopicListener"/>
+    </jms:listener-container> -->
+
+</beans>

@@ -134,4 +134,7 @@
 		<property name="serverFtpDataTimeout" value="${server.ftp.data.timeout}" />
 	</bean>
 
+	<!--// JMS  -->
+	<import resource="spring-jms.xml"/>
+
 </beans>

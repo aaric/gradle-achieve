@@ -75,7 +75,6 @@ ext.libraries =[
     	"commons-lang:commons-lang:$commonsLangVersion",
     	"commons-logging:commons-logging:$commonsLoggingVersion",
     	"commons-net:commons-net:$commonsNetVersion",
-    	/*"org.apache.activemq:activemq-all:$activemqVersion",*/
     	"org.apache.commons:commons-pool2:$commonsPool2Version",
     	"org.apache.xbean:xbean-spring:$xbeanSpringVersion",
     	"com.belerweb:pinyin4j:$pinyin4jVersion",
@@ -130,7 +129,10 @@ ext.libraries =[
     ],
     quartz: [
     	"org.quartz-scheduler:quartz:$quartzVersion"
-    ]
+    ],
+    activeMQ: [
+		"org.apache.activemq:activemq-all:$activemqVersion"
+	]
 ]
 
 [compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
@@ -147,6 +149,7 @@ dependencies {
 	compile libraries.springframework
 	compile libraries.redis
 	compile libraries.poi
+	compile libraries.activeMQ
 }
 
 jettyRun {
