@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>avatar.html</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="discuz/camera.js?YOb"></script>
+</head>
+<body>
+<script type="text/javascript">
+	var dealUrl = window.location.protocol + "//" + window.location.host + '/java-gradle-sm-framework/avatar/upload';
+	document.write(AC_FL_RunContent(
+			'id', 'mycamera',
+			'name', 'mycamera',
+			'width', '450',
+			'height', '253',
+			'scale', 'exactfit',
+			'src', 'discuz/camera.swf?a=init&inajax=1&appid=1&input=' + 'MTQ2ODk=' + '&agent=71e9d81c5317fe08cbeebb649a300dff&avatartype=virtual&uploadSize=2048&ucapi=' + encodeURI(dealUrl),
+			'quality', 'high',
+			'bgcolor', '#ffffff',
+			'menu', 'false',
+			'swLiveConnect', 'true',
+			'allowScriptAccess', 'always'
+		));
+</script>
+</body>
+</html>

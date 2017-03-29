@@ -38,4 +38,10 @@ public interface ResponseDefine {
 	// 未知错误
 	public static final String ERORR_UNKNOW = "0002";
 
+	// 用户ID错误
+	public static final String ERROR_USER_ID = "0003";
+
+	// 头像信息错误
+	public static final String ERORR_NO_AVATAR = "0004";
+
 }
