@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2017-03-29
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:applicationContext-Test.xml" })
+@ContextConfiguration({ "classpath:spring-context-Test.xml" })
 public class ActiveMQTest {
 
 	// 用户名

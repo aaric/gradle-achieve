@@ -20,7 +20,7 @@ import redis.clients.jedis.ShardedJedisPool;
  * @since 2017-03-25
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:applicationContext-Test.xml" })
+@ContextConfiguration({ "classpath:spring-context-Test.xml" })
 public class ShardedJedisPoolTest {
 
 	@Autowired

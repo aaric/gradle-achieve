@@ -27,7 +27,7 @@
 	<context-param>
 		<description>Define applicationContext.xml location.</description>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:root-context.xml</param-value>
+		<param-value>classpath:spring-context.xml</param-value>
 	</context-param>
 	<filter>
 		<description>Define spring4.x character encoding filter.</description>

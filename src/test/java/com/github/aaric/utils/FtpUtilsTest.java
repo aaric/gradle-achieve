@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2017-03-23
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:applicationContext-Test.xml" })
+@ContextConfiguration({ "classpath:spring-context-Test.xml" })
 public class FtpUtilsTest {
 
 	@Autowired

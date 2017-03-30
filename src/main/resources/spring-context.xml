@@ -136,5 +136,8 @@
 
 	<!--// JMS  -->
 	<import resource="spring-jms.xml"/>
+	
+	<!--// Dubbo  -->
+	<import resource="spring-dubbo.xml"/>
 
 </beans>

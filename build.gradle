@@ -132,6 +132,10 @@ ext.libraries =[
     ],
     activeMQ: [
 		"org.apache.activemq:activemq-all:$activemqVersion"
+	],
+	zookeeper: [
+		"com.101tec:zkclient:$zkclientVersion",
+		"org.apache.zookeeper:zookeeper:$zookeeperVersion"
 	]
 ]
 
@@ -150,6 +154,10 @@ dependencies {
 	compile libraries.redis
 	compile libraries.poi
 	compile libraries.activeMQ
+	compile libraries.zookeeper
+	compile ("com.alibaba:dubbo:$dubboVersion") {
+		exclude group: 'org.springframework', module: 'spring'
+	}
 }
 
 jettyRun {
