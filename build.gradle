@@ -78,7 +78,7 @@ ext.libraries =[
     	"org.apache.commons:commons-pool2:$commonsPool2Version",
     	"org.apache.xbean:xbean-spring:$xbeanSpringVersion",
     	"com.belerweb:pinyin4j:$pinyin4jVersion",
-    	/*"com.github.penggle:kaptcha:$kaptchaVersion",*/
+    	"com.github.penggle:kaptcha:$kaptchaVersion",
     	"com.mchange:mchange-commons-java:$mchangeCommonsJavaVersion"
     ],
     json: [
@@ -130,6 +130,10 @@ ext.libraries =[
     quartz: [
     	"org.quartz-scheduler:quartz:$quartzVersion"
     ],
+    id: [
+		"com.bocom.jump.bp:core:$bocomVersion",
+		"com.bocom.jump.bp.service:id:$bocomVersion"
+	],
     activeMQ: [
 		"org.apache.activemq:activemq-all:$activemqVersion"
 	],
@@ -153,6 +157,8 @@ dependencies {
 	compile libraries.springframework
 	compile libraries.redis
 	compile libraries.poi
+	compile libraries.quartz
+	compile libraries.id
 	compile libraries.activeMQ
 	compile libraries.zookeeper
 	compile ("com.alibaba:dubbo:$dubboVersion") {

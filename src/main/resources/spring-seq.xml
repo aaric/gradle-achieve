@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- 
+	 |	一、创建表SQL:
+	 |	CREATE TABLE `seq_no` (
+	 |	  `type` CHAR(2) NOT NULL,
+	 |	  `id` BIGINT(20) DEFAULT NULL,
+	 |	  `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	 |	  PRIMARY KEY (`type`)
+	 |	);
+	 |  二、插入数据:
+	 |  INSERT INTO `seq_no` (`type`, `id`, `datetime`) VALUES ('01', 100, NOW());
+	 -->
+
+	<!-- 序列表 -->
+	<bean id="seqNoTable" class="com.bocom.jump.bp.service.id.seq.SequenceTable" init-method="init">
+		<property name="tableName" value="seq_no" />
+		<property name="idColume" value="id" />
+		<property name="typeColume" value="type" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 序列工厂 -->
+	<bean id="type01StepSequenceFactory" class="com.bocom.jump.bp.service.id.seq.StepSequenceFactory">
+		<property name="table" ref="seqNoTable" />
+		<property name="step" value="100" />
+		<property name="dateCutoff" value="true" />
+		<property name="type" value="01" />
+		<property name="format" value="{yyyyMMdd}{$type}{#######}" />
+	</bean>
+
+</beans>
