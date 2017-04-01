@@ -41,9 +41,9 @@
 
     <!--// 消息消费者 -->
     <!-- 定义Queue监听器 -->
-    <bean id="testQueueListener" class="com.github.aaric.listener.TestQueueListener"></bean>
+    <bean id="activeMQQueueMessageListener" class="com.github.aaric.listener.ActiveMQQueueMessageListener"></bean>
     <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
-        <jms:listener destination="HelloWorld" ref="testQueueListener"/>
+        <jms:listener destination="HelloWorld" ref="activeMQQueueMessageListener" />
     </jms:listener-container>
 
     <!-- 定义Topic监听器 -->

@@ -170,4 +170,7 @@
 	<!--// Seq  -->
 	<import resource="spring-seq.xml"/>
 
+	<!--// Kafka  -->
+	<import resource="spring-kafka.xml"/>
+
 </beans>

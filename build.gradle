@@ -164,6 +164,9 @@ dependencies {
 	compile ("com.alibaba:dubbo:$dubboVersion") {
 		exclude group: 'org.springframework', module: 'spring'
 	}
+	compile ("org.springframework.kafka:spring-kafka:$springKafkaVersion") {
+		exclude group: 'org.springframework', module: 'spring-messaging'
+	}
 }
 
 jettyRun {

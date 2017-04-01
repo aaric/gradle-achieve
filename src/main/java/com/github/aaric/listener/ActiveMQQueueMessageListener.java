@@ -11,12 +11,12 @@ import javax.jms.TextMessage;
  * @author Aaric
  * @since 2017-03-29
  */
-public class TestQueueListener implements MessageListener {
+public class ActiveMQQueueMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message message) {
 		try {
-			System.out.println("TODO: " + ((TextMessage) message).getText());
+			System.out.println("ActiveMQ: " + ((TextMessage) message).getText());
 			
 		} catch (JMSException e) {
 			e.printStackTrace();
