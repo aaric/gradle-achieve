@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'java-gradle-sm-framework'
+rootProject.name = 'gradle-achieve'
